@@ -11,7 +11,10 @@ public class Constants {
     public static String API_TOKEN = "7a09d01410447f07e1498cf190bfad61";
 
     public static final class APIConstants {
-        public static final String BASE_URL = "http://api.themoviedb.org/";
+
+        public static final String API_VERSION = "3/";
+
+        public static final String BASE_URL = "http://api.themoviedb.org/" + API_VERSION;
         public static final String APP_KEY_QUERY_PARAM = "api_key";
         public static final String SORT_POPULARITY = "popularity.desc";
         public static final String SORT_FAVORITE = "favorites";

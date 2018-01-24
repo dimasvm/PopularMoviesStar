@@ -1,6 +1,7 @@
 package com.example.dimas.popular_movies_star.data.network;
 
 import com.example.dimas.popular_movies_star.utils.Constants;
+import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 
 import java.io.IOException;
 
@@ -22,6 +23,7 @@ public class MovieClient {
 
     public static Retrofit.Builder builder = new Retrofit.Builder()
             .baseUrl(Constants.APIConstants.BASE_URL)
+            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .addConverterFactory(GsonConverterFactory.create());
 
     private static OkHttpClient.Builder httpClient = new OkHttpClient.Builder();

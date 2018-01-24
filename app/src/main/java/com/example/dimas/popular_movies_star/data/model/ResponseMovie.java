@@ -7,7 +7,7 @@ import java.util.List;
  * Email            : araymaulana66@gmail.com
  */
 
-public class ListResponse<T> {
+public class ResponseMovie<T> {
 
     private int page;
     private int total_results;

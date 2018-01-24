@@ -14,6 +14,8 @@ import com.example.dimas.popular_movies_star.ui.adapter.MovieAdapter;
 
 import java.util.List;
 
+import io.reactivex.disposables.CompositeDisposable;
+
 public class MainActivity extends AppCompatActivity implements MainView {
 
     private static final String TAG = "MainActivity";
@@ -23,6 +25,8 @@ public class MainActivity extends AppCompatActivity implements MainView {
     private RecyclerView mRecyclerView;
     private MovieAdapter movieAdapter;
     private ProgressBar progressBar;
+
+    private CompositeDisposable compositeDisposable = new CompositeDisposable();
 
 
     @Override
@@ -62,5 +66,11 @@ public class MainActivity extends AppCompatActivity implements MainView {
     public void showMovie(List<Movie> movies) {
         movieAdapter = new MovieAdapter(this, movies);
         mRecyclerView.setAdapter(movieAdapter);
+    }
+
+    @Override
+    protected void onDestroy() {
+        compositeDisposable.clear();
+        super.onDestroy();
     }
 }
