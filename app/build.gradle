@@ -1,0 +1,43 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 26
+    defaultConfig {
+        applicationId "com.example.dimas.popular_movies_star"
+        minSdkVersion 15
+        targetSdkVersion 26
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+
+    final SUPPORT_LIBRARY_VERSION = '26.1.0'
+    final RETROFIT_LIBRARY_VERSION = '2.3.0'
+
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'com.android.support.test:runner:1.0.1'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
+
+    // for networking lib
+    implementation 'com.google.code.gson:gson:2.8.2'
+    implementation "com.squareup.retrofit2:retrofit:$RETROFIT_LIBRARY_VERSION"
+    implementation "com.squareup.retrofit2:converter-gson:$RETROFIT_LIBRARY_VERSION"
+
+    // for image processing
+    implementation 'com.squareup.picasso:picasso:2.5.2'
+
+    // support library / ui
+    implementation "com.android.support:appcompat-v7:$SUPPORT_LIBRARY_VERSION"
+    implementation "com.android.support:recyclerview-v7:$SUPPORT_LIBRARY_VERSION"
+    implementation "com.android.support:cardview-v7:$SUPPORT_LIBRARY_VERSION"
+}
