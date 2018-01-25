@@ -1,5 +1,9 @@
 package com.example.dimas.popular_movies_star.data.network;
 
+import android.content.res.Resources;
+
+import com.example.dimas.popular_movies_star.BuildConfig;
+import com.example.dimas.popular_movies_star.R;
 import com.example.dimas.popular_movies_star.utils.Constants;
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 
@@ -21,6 +25,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MovieClient {
 
+    private static String API_KEY = Resources.getSystem().getString(R.string.TheMovieDbAPIToken);
+
     public static Retrofit.Builder builder = new Retrofit.Builder()
             .baseUrl(Constants.APIConstants.BASE_URL)
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
@@ -35,7 +41,7 @@ public class MovieClient {
                 Request original = chain.request();
                 HttpUrl url = original.url()
                         .newBuilder()
-                        .addQueryParameter(Constants.APIConstants.APP_KEY_QUERY_PARAM, Constants.API_TOKEN)
+                        .addQueryParameter(Constants.APIConstants.APP_KEY_QUERY_PARAM, API_KEY)
                         .build();
                 Request request = original.newBuilder().url(url).build();
                 return chain.proceed(request);

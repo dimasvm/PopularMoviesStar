@@ -1,5 +1,6 @@
 package com.example.dimas.popular_movies_star.utils;
 
+
 /**
  * Created by       : dimas on 15/01/18.
  * Email            : araymaulana66@gmail.com
@@ -8,7 +9,6 @@ package com.example.dimas.popular_movies_star.utils;
 public class Constants {
 
     public static final String MOVIE_TAG = "MOVIE";
-    public static String API_TOKEN = "7a09d01410447f07e1498cf190bfad61";
 
     public static final class APIConstants {
 
