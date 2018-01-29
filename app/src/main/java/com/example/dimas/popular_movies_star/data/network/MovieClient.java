@@ -25,7 +25,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MovieClient {
 
-    private static String API_KEY = Resources.getSystem().getString(R.string.TheMovieDbAPIToken);
+    private static String API_KEY = "7a09d01410447f07e1498cf190bfad61";
 
     public static Retrofit.Builder builder = new Retrofit.Builder()
             .baseUrl(Constants.APIConstants.BASE_URL)

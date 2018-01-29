@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">Popular-Movies-Star</string>
+
+    <!--Menu Movies-->
+    <string name="popular_movie">Popular</string>
+    <string name="upcoming_movie">Upcoming</string>
+    <string name="now_playing">Now Playing</string>
+
 </resources>

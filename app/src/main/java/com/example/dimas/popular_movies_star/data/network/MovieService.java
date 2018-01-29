@@ -16,5 +16,14 @@ import retrofit2.http.Query;
 public interface MovieService {
 
     @GET("discover/movie?")
-    Observable<ResponseMovie<Movie>> getDiscoverMovie(@Query("page") int page);
+    Observable<ResponseMovie<Movie>> getDiscoverMovie(
+            @Query("page") int page,
+            @Query("sort_by") String sortBy
+    );
+
+    @GET("movie/now_playing")
+    Observable<ResponseMovie<Movie>> getNowPlaying(
+            @Query("page") int page
+    );
+
 }

@@ -1,20 +1,27 @@
 package com.example.dimas.popular_movies_star.ui.activity;
 
+
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.dimas.popular_movies_star.R;
 import com.example.dimas.popular_movies_star.data.model.Movie;
+import com.example.dimas.popular_movies_star.mvp.presenter.MainPresenter;
+import com.example.dimas.popular_movies_star.mvp.presenter.MainPresenterImp;
+import com.example.dimas.popular_movies_star.mvp.view.MainView;
 import com.example.dimas.popular_movies_star.ui.adapter.MovieAdapter;
 
 import java.util.List;
 
-import io.reactivex.disposables.CompositeDisposable;
+import static com.example.dimas.popular_movies_star.OptionMovie.POPULAR_MOVIE;
+import static com.example.dimas.popular_movies_star.OptionMovie.UPCOMING_MOVIE;
 
 public class MainActivity extends AppCompatActivity implements MainView {
 
@@ -26,7 +33,6 @@ public class MainActivity extends AppCompatActivity implements MainView {
     private MovieAdapter movieAdapter;
     private ProgressBar progressBar;
 
-    private CompositeDisposable compositeDisposable = new CompositeDisposable();
 
 
     @Override
@@ -37,12 +43,13 @@ public class MainActivity extends AppCompatActivity implements MainView {
 
         initViews();
         mainPresenter = new MainPresenterImp(this, this);
-        mainPresenter.getMovies(currentPage);
+        mainPresenter.getMovies(currentPage, POPULAR_MOVIE);
+
     }
 
     private void initViews() {
-        mRecyclerView = (RecyclerView) findViewById(R.id.recyclerView);
-        progressBar = (ProgressBar) findViewById(R.id.progressBar);
+        mRecyclerView = findViewById(R.id.recyclerView);
+        progressBar = findViewById(R.id.progressBar);
         GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 2);
         mRecyclerView.setLayoutManager(gridLayoutManager);
         mRecyclerView.setHasFixedSize(true);
@@ -70,7 +77,33 @@ public class MainActivity extends AppCompatActivity implements MainView {
 
     @Override
     protected void onDestroy() {
-        compositeDisposable.clear();
         super.onDestroy();
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int selectedMenu = item.getItemId();
+
+        switch (selectedMenu){
+            case R.id.popular:
+                mainPresenter.getMovies(currentPage, POPULAR_MOVIE);
+                item.setChecked(true);
+                break;
+            case R.id.upcoming:
+                mainPresenter.getMovies(currentPage, UPCOMING_MOVIE);
+                item.setChecked(true);
+                break;
+            case R.id.now_playing:
+                mainPresenter.getNowPlaying(currentPage);
+                item.setChecked(true);
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
 }

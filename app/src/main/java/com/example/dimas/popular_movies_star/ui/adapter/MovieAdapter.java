@@ -28,13 +28,15 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
 
     public MovieAdapter(Context context, List<Movie> movies) {
         mMoviesList = new ArrayList<>();
-        mMoviesList = movies;
+        addAll(movies);
         mContext = context;
     }
 
 
     public void addAll(List<Movie> movies) {
+        mMoviesList.clear();
         mMoviesList.addAll(movies);
+        notifyDataSetChanged();
     }
 
     @Override

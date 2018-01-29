@@ -17,6 +17,7 @@ public class Constants {
         public static final String BASE_URL = "http://api.themoviedb.org/" + API_VERSION;
         public static final String APP_KEY_QUERY_PARAM = "api_key";
         public static final String SORT_POPULARITY = "popularity.desc";
+        public static final String SORT_RELEASE_DATE = "release_date.desc";
         public static final String SORT_FAVORITE = "favorites";
         public final static String IMAGE_BASE_URL = "http://image.tmdb.org/t/p/";
         public final static String POSTER_SIZE = "w185/";
