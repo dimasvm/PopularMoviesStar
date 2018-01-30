@@ -5,5 +5,16 @@
     <string name="popular_movie">Popular</string>
     <string name="upcoming_movie">Upcoming</string>
     <string name="now_playing">Now Playing</string>
+    <string name="release_date">Release Date :</string>
+    <string name="overview">Overview</string>
+
+
+    <string name="lorem_ipsum">
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+        Accusamus alias aspernatur corporis cumque dolore doloribus dolorum explicabo ipsum itaque
+        molestiae mollitia nisi numquam porro provident reiciendis repudiandae tenetur,
+        vel voluptatibus?
+    </string>
+    <string name="trailer">Trailer</string>
 
 </resources>

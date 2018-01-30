@@ -1,6 +1,7 @@
 package com.example.dimas.popular_movies_star.mvp.presenter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 
 import com.example.dimas.popular_movies_star.OptionMovie;
@@ -8,11 +9,11 @@ import com.example.dimas.popular_movies_star.data.model.Movie;
 import com.example.dimas.popular_movies_star.data.model.ResponseMovie;
 import com.example.dimas.popular_movies_star.data.network.MovieClient;
 import com.example.dimas.popular_movies_star.data.network.MovieService;
-import com.example.dimas.popular_movies_star.mvp.model.MainModelImp;
 import com.example.dimas.popular_movies_star.mvp.ResultListener;
+import com.example.dimas.popular_movies_star.mvp.model.MainModelImp;
 import com.example.dimas.popular_movies_star.mvp.view.MainView;
+import com.example.dimas.popular_movies_star.ui.activity.DetailMovieActivity;
 import com.example.dimas.popular_movies_star.ui.adapter.MovieAdapter;
-import com.example.dimas.popular_movies_star.ui.base.BasePresenter;
 import com.example.dimas.popular_movies_star.utils.Constants;
 
 import java.util.List;
@@ -26,7 +27,7 @@ import io.reactivex.Observable;
  */
 
 public class MainPresenterImp
-        implements BasePresenter<MainView>, MainPresenter, ResultListener {
+        implements MainPresenter, ResultListener {
 
     private MainView mainView;
     private MainModelImp mainModel;
@@ -58,7 +59,7 @@ public class MainPresenterImp
         MovieService movieService = MovieClient.createService(MovieService.class);
 
         String sortBy;
-        switch (optionMovie){
+        switch (optionMovie) {
             case POPULAR_MOVIE:
                 sortBy = Constants.APIConstants.SORT_POPULARITY;
                 break;
@@ -82,6 +83,11 @@ public class MainPresenterImp
         Observable<ResponseMovie<Movie>> movieObservable = movieService.getNowPlaying(currentPage);
 
         mainModel.callMatchMovies(movieObservable, this);
+    }
+
+    @Override
+    public void getDetailPage(Movie movie) {
+        Intent intent = new Intent(context, DetailMovieActivity.class);
     }
 
     @Override

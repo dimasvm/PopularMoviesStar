@@ -7,4 +7,12 @@
     <dimen name="card_corner_default">3dp</dimen>
     <dimen name="margin_cardview">4dp</dimen>
     <dimen name="card_elevation_default">3dp</dimen>
+    <dimen name="collapsing_toolbar_height">148dp</dimen>
+
+    <!--Divider Dimens-->
+    <dimen name="margin_top_divider">18dp</dimen>
+    <dimen name="margin_bottom_divider">18dp</dimen>
+    <dimen name="margin_end_divider">8dp</dimen>
+    <dimen name="margin_start_divider">8dp</dimen>
+    <dimen name="app_bar_height">256dp</dimen>
 </resources>

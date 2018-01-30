@@ -1,4 +1,4 @@
-package com.example.dimas.popular_movies_star.ui.base;
+package com.example.dimas.popular_movies_star.mvp;
 
 import android.support.annotation.NonNull;
 

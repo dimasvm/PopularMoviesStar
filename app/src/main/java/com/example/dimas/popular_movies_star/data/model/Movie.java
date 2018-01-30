@@ -5,6 +5,7 @@ import android.os.Parcelable;
 
 import java.util.List;
 
+import static com.example.dimas.popular_movies_star.utils.Constants.APIConstants.BACKDROP_SIZE;
 import static com.example.dimas.popular_movies_star.utils.Constants.APIConstants.IMAGE_BASE_URL;
 import static com.example.dimas.popular_movies_star.utils.Constants.APIConstants.POSTER_SIZE;
 
@@ -27,6 +28,7 @@ public class Movie implements Parcelable {
             return new Movie[size];
         }
     };
+
     private int vote_count;
     private int id;
     private boolean video;
@@ -131,7 +133,7 @@ public class Movie implements Parcelable {
     }
 
     public String getBackdrop_path() {
-        return backdrop_path;
+        return IMAGE_BASE_URL + BACKDROP_SIZE + backdrop_path;
     }
 
     public void setBackdrop_path(String backdrop_path) {

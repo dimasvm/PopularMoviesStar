@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    android:layout_height="match_parent"
+    android:padding="@dimen/padding_med">
+
+    <ImageView
+        android:id="@+id/poster_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/padding_med"
+        android:layout_marginRight="@dimen/padding_med"
+        android:scaleType="fitCenter"
+        android:src="@mipmap/ic_launcher" />
+
+    <LinearLayout
+        android:id="@+id/l_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@id/poster_image"
+        android:layout_toRightOf="@id/poster_image"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/title_movie"
+            style="@style/TextAppearance.AppCompat.Title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Judul Filem" />
+
+        <TextView
+            android:id="@+id/rating_movie"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/ic_stars_black_24dp"
+            android:drawableStart="@drawable/ic_stars_black_24dp"
+            android:gravity="center"
+            android:text="7.8"
+            android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/release_date"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/release_date"
+            android:textAppearance="@style/TextAppearance.AppCompat.Caption" />
+    </LinearLayout>
+
+    <include
+        android:id="@+id/view_divider_1"
+        style="@style/Divider_View"
+        layout="@layout/view_divider"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@id/poster_image" />
+
+    <TextView
+        android:id="@+id/overview"
+        style="@style/SubHeading"
+        android:layout_below="@id/view_divider_1"
+        android:text="@string/overview" />
+
+    <TextView
+        android:id="@+id/overview_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/overview"
+        android:layout_marginLeft="@dimen/padding_med"
+        android:layout_marginRight="@dimen/padding_med"
+        android:ellipsize="start"
+        android:maxLines="2"
+        android:text="@string/lorem_ipsum"
+        android:textAlignment="center" />
+
+    <include
+        android:id="@+id/view_divider_2"
+        style="@style/Divider_View"
+        layout="@layout/view_divider"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@id/overview_text" />
+
+    <TextView
+        android:id="@+id/trailer"
+        style="@style/SubHeading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/view_divider_2"
+        android:text="@string/trailer" />
+
+    <!--TODO : // Buat Trailer Feature-->
+    <HorizontalScrollView
+        android:id="@+id/horizontal_trailer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/trailer">
+
+        <include layout="@layout/item_trailer_horizontal" />
+
+    </HorizontalScrollView>
+
+
+</RelativeLayout>

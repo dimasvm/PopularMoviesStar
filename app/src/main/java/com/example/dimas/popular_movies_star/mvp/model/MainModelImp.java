@@ -16,13 +16,14 @@ import io.reactivex.schedulers.Schedulers;
  * Email            : araymaulana66@gmail.com
  */
 
-public class MainModelImp implements MaiModel{
+public class MainModelImp implements MaiModel {
 
-    public MainModelImp(){}
+    public MainModelImp() {
+    }
 
     @Override
     public void callMatchMovies(final Observable<ResponseMovie<Movie>> movieObservable, final ResultListener listener) {
-                movieObservable
+        movieObservable
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Consumer<ResponseMovie<Movie>>() {

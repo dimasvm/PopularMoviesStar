@@ -21,6 +21,7 @@ public class Constants {
         public static final String SORT_FAVORITE = "favorites";
         public final static String IMAGE_BASE_URL = "http://image.tmdb.org/t/p/";
         public final static String POSTER_SIZE = "w185/";
+        public final static String BACKDROP_SIZE = "w300/";
 
 
     }

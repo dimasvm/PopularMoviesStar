@@ -1,9 +1,5 @@
 package com.example.dimas.popular_movies_star.data.network;
 
-import android.content.res.Resources;
-
-import com.example.dimas.popular_movies_star.BuildConfig;
-import com.example.dimas.popular_movies_star.R;
 import com.example.dimas.popular_movies_star.utils.Constants;
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 
@@ -25,13 +21,12 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MovieClient {
 
-    private static String API_KEY = "7a09d01410447f07e1498cf190bfad61";
+    private static String API_KEY = "INSERT YOUR API KEY HERE";
 
     public static Retrofit.Builder builder = new Retrofit.Builder()
             .baseUrl(Constants.APIConstants.BASE_URL)
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .addConverterFactory(GsonConverterFactory.create());
-
     private static OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
 
     public static <S> S createService(Class<S> serviceClass) {
