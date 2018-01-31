@@ -1,5 +1,7 @@
 package com.example.dimas.popular_movies_star.ui.adapter;
 
+import android.widget.ImageView;
+
 import com.example.dimas.popular_movies_star.data.model.Movie;
 
 /**
@@ -9,5 +11,5 @@ import com.example.dimas.popular_movies_star.data.model.Movie;
 
 public interface MovieClickListener {
 
-    void onMovieClicked(Movie movie);
+    void onMovieClicked(Movie movie, ImageView sharedImage);
 }

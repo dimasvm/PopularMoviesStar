@@ -1,7 +1,7 @@
 package com.example.dimas.popular_movies_star.ui.adapter;
 
 import android.content.Context;
-import android.content.Intent;
+import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,7 +11,6 @@ import android.widget.TextView;
 
 import com.example.dimas.popular_movies_star.R;
 import com.example.dimas.popular_movies_star.data.model.Movie;
-import com.example.dimas.popular_movies_star.ui.activity.DetailMovieActivity;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -25,19 +24,16 @@ import java.util.List;
 public class MovieAdapter
         extends RecyclerView.Adapter<MovieAdapter.MovieViewHolder> {
 
-    private List<Movie> mMoviesList;
     private Context mContext;
+    private List<Movie> mMoviesList;
     private MovieClickListener movieClickListener;
 
 
-    public MovieAdapter(Context context, List<Movie> movies) {
+    public MovieAdapter(Context context, List<Movie> movies, MovieClickListener movieClickListener) {
         mMoviesList = new ArrayList<>();
         addAll(movies);
         mContext = context;
-    }
-
-    public void setMovieClickListener(MovieClickListener listener) {
-        this.movieClickListener = listener;
+        this.movieClickListener = movieClickListener;
     }
 
     public void addAll(List<Movie> movies) {
@@ -54,17 +50,9 @@ public class MovieAdapter
     }
 
     @Override
-    public void onBindViewHolder(MovieViewHolder holder, int position) {
+    public void onBindViewHolder(final MovieViewHolder holder, int position) {
         Movie movie = mMoviesList.get(position);
         holder.bindData(movie);
-        setMovieClickListener(new MovieClickListener() {
-            @Override
-            public void onMovieClicked(Movie movie) {
-                Intent intent = new Intent(mContext, DetailMovieActivity.class);
-                intent.putExtra("movie", movie);
-                mContext.startActivity(intent);
-            }
-        });
     }
 
 
@@ -96,12 +84,14 @@ public class MovieAdapter
                     .error(android.R.drawable.stat_notify_error)
                     .into(imageMovie);
             titleMovie.setText(movie.getTitle());
+
+            ViewCompat.setTransitionName(imageMovie, movie.getTitle());
         }
 
         @Override
         public void onClick(View view) {
             // TODO: 29/01/18 Go To Detail Activity
-            movieClickListener.onMovieClicked(mMoviesList.get(getAdapterPosition()));
+            movieClickListener.onMovieClicked(mMoviesList.get(getAdapterPosition()), imageMovie);
         }
     }
 

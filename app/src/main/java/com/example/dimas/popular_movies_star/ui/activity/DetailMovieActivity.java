@@ -1,9 +1,11 @@
 package com.example.dimas.popular_movies_star.ui.activity;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -15,7 +17,11 @@ import android.widget.Toast;
 import com.example.dimas.popular_movies_star.R;
 import com.example.dimas.popular_movies_star.data.model.Movie;
 import com.example.dimas.popular_movies_star.mvp.view.DetailMovieView;
+import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
+
+import static com.example.dimas.popular_movies_star.ui.activity.MainActivity.EXTRA_IMAGE_MOVIE_TRANSITION_NAME;
+import static com.example.dimas.popular_movies_star.ui.activity.MainActivity.EXTRA_MOVIE;
 
 /**
  * Created by       : dimas on 29/01/18.
@@ -33,16 +39,18 @@ public class DetailMovieActivity
     private TextView overviewMovie;
 
     private Movie movie;
+    Bundle bundle;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail_movie);
+        supportPostponeEnterTransition();
 
+        bundle = getIntent().getExtras();
 
-        Intent intent = getIntent();
-        if (intent != null) {
-            movie = intent.getParcelableExtra("movie");
+        if (bundle != null) {
+            movie = bundle.getParcelable(EXTRA_MOVIE);
         }
 
         initViews();
@@ -53,11 +61,11 @@ public class DetailMovieActivity
     private void initViews() {
         Toolbar toolbar = findViewById(R.id.toolbar_detail);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         CollapsingToolbarLayout collapsingToolbarLayout = findViewById(R.id.collapsing_toolbar_layout);
         collapsingToolbarLayout.setTitle(movie.getTitle());
-        collapsingToolbarLayout.setCollapsedTitleTextColor(getResources().getColor(android.R.color.white));
-        collapsingToolbarLayout.setExpandedTitleColor(getResources().getColor(R.color.colorPrimary));
+        collapsingToolbarLayout.setCollapsedTitleTextColor(ContextCompat.getColor(this, android.R.color.white));
 
         imageBackdrop = findViewById(R.id.backdrop_image);
         imagePoster = findViewById(R.id.poster_image);
@@ -74,7 +82,23 @@ public class DetailMovieActivity
         if (movie != null) {
             showLoading(false);
 
-            Picasso.with(this).load(movie.getBackdrop_path()).into(imageBackdrop);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                String imageMovieTransitionName = bundle.getString(EXTRA_IMAGE_MOVIE_TRANSITION_NAME);
+                imagePoster.setTransitionName(imageMovieTransitionName);
+            }
+            Picasso.with(this)
+                    .load(movie.getBackdrop_path())
+                    .into(imageBackdrop, new Callback() {
+                        @Override
+                        public void onSuccess() {
+                            supportStartPostponedEnterTransition();
+                        }
+
+                        @Override
+                        public void onError() {
+                            supportStartPostponedEnterTransition();
+                        }
+                    });
             Picasso.with(this).load(movie.getPoster_path()).into(imagePoster);
             titleMovie.setText(movie.getTitle());
             String release = getResources().getString(R.string.release_date) + movie.getRelease_date();
