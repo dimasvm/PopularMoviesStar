@@ -43,6 +43,11 @@ public class MainActivity extends AppCompatActivity implements MainView, MovieCl
     private MovieAdapter movieAdapter;
     private ProgressBar progressBar;
 
+    // For keep position state recyclerview
+    public static int index = -1;
+    public static int top = -1;
+    private GridLayoutManager gridLayoutManager;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,7 +68,8 @@ public class MainActivity extends AppCompatActivity implements MainView, MovieCl
         mRecyclerView = findViewById(R.id.recyclerView);
         progressBar = findViewById(R.id.progressBar);
         int gridColumn = getResources().getInteger(R.integer.grid_column_count);
-        mRecyclerView.setLayoutManager(new GridLayoutManager(this, gridColumn));
+        gridLayoutManager = new GridLayoutManager(this, gridColumn);
+        mRecyclerView.setLayoutManager(gridLayoutManager);
         mRecyclerView.setHasFixedSize(true);
     }
 
@@ -131,5 +137,22 @@ public class MainActivity extends AppCompatActivity implements MainView, MovieCl
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
             startActivity(intent, options.toBundle());
         } else startActivity(intent);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+        index = gridLayoutManager.findFirstVisibleItemPosition();
+        View v = mRecyclerView.getChildAt(0);
+        top = (v == null) ? 0 : (v.getTop() - mRecyclerView.getPaddingTop());
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (index != -1){
+            gridLayoutManager.scrollToPositionWithOffset(index, top);
+        }
     }
 }
