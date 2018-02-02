@@ -22,22 +22,14 @@ public class MainModelImp implements MaiModel {
     }
 
     @Override
-    public void callMatchMovies(final Observable<ResponseMovie<Movie>> movieObservable, final ResultListener listener) {
+    public void callMatchMovies(final Observable<ResponseMovie<Movie>> movieObservable, final ResultListener<Movie> listener) {
         movieObservable
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Consumer<ResponseMovie<Movie>>() {
-                               @Override
-                               public void accept(ResponseMovie<Movie> movieResponseMovie) throws Exception {
-                                   List<Movie> movies = movieResponseMovie.getResults();
-                                   listener.onSuccess(movies);
-                               }
-                           },
-                        new Consumer<Throwable>() {
-                            @Override
-                            public void accept(Throwable throwable) throws Exception {
-                                listener.onFailure(throwable.getMessage());
-                            }
-                        });
+                .subscribe(movieResponseMovie -> {
+                    List<Movie> movies = movieResponseMovie.getResults();
+                    listener.onSuccess(movies);
+                },
+                        throwable -> listener.onFailure(throwable.getMessage()));
     }
 }

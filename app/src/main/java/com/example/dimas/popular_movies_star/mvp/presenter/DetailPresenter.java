@@ -10,5 +10,5 @@ import com.example.dimas.popular_movies_star.mvp.view.DetailMovieView;
 
 public interface DetailPresenter extends BasePresenter<DetailMovieView> {
 
-
+    void setupTrailerVideo(int keyMovie);
 }

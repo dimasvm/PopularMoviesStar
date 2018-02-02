@@ -27,11 +27,10 @@ import io.reactivex.Observable;
  */
 
 public class MainPresenterImp
-        implements MainPresenter, ResultListener {
+        implements MainPresenter, ResultListener<Movie> {
 
     private MainView mainView;
     private MainModelImp mainModel;
-    private MovieAdapter movieAdapter;
     private Context context;
 
 
@@ -95,6 +94,7 @@ public class MainPresenterImp
         mainView.showLoading(false);
         mainView.showMovie(movies);
     }
+
 
     @Override
     public void onFailure(String errorMessage) {

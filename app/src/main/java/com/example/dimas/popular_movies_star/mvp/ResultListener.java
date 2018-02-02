@@ -9,9 +9,9 @@ import java.util.List;
  * Email            : araymaulana66@gmail.com
  */
 
-public interface ResultListener {
+public interface ResultListener<T> {
 
-    void onSuccess(List<Movie> movies);
+    void onSuccess(List<T> listT);
 
     void onFailure(String errorMessage);
 }

@@ -13,5 +13,6 @@ import io.reactivex.Observable;
 
 public interface MaiModel {
 
-    void callMatchMovies(Observable<ResponseMovie<Movie>> movieObservable, ResultListener listener);
+    void callMatchMovies(Observable<ResponseMovie<Movie>> movieObservable, ResultListener<Movie> listener);
+
 }

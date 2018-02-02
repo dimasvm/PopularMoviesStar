@@ -64,33 +64,36 @@ public class MovieAdapter
 
     public class MovieViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        public ImageView imageMovie;
-        public TextView titleMovie;
+        ImageView imageMovie;
+        TextView titleMovie;
+        TextView ratingMovie;
 
-        public MovieViewHolder(View itemView) {
+
+        MovieViewHolder(View itemView) {
             super(itemView);
 
             imageMovie = itemView.findViewById(R.id.imageMovie);
             titleMovie = itemView.findViewById(R.id.titleMovie);
+            ratingMovie = itemView.findViewById(R.id.ratingMovie);
 
             itemView.setOnClickListener(this);
 
         }
 
-        public void bindData(Movie movie) {
+        void bindData(Movie movie) {
             Picasso.with(mContext)
                     .load(movie.getPoster_path())
                     .placeholder(android.R.drawable.stat_sys_warning)
                     .error(android.R.drawable.stat_notify_error)
                     .into(imageMovie);
             titleMovie.setText(movie.getTitle());
+            ratingMovie.setText(String.valueOf(movie.getVote_average()));
 
             ViewCompat.setTransitionName(imageMovie, movie.getTitle());
         }
 
         @Override
         public void onClick(View view) {
-            // TODO: 29/01/18 Go To Detail Activity
             movieClickListener.onMovieClicked(mMoviesList.get(getAdapterPosition()), imageMovie);
         }
     }

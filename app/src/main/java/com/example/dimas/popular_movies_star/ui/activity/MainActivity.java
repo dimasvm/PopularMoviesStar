@@ -7,8 +7,10 @@ import android.os.Bundle;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.view.ViewCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.LinearSnapHelper;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SnapHelper;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -21,7 +23,6 @@ import com.example.dimas.popular_movies_star.R;
 import com.example.dimas.popular_movies_star.data.model.Movie;
 import com.example.dimas.popular_movies_star.mvp.presenter.MainPresenter;
 import com.example.dimas.popular_movies_star.mvp.presenter.MainPresenterImp;
-import com.example.dimas.popular_movies_star.mvp.view.DetailMovieView;
 import com.example.dimas.popular_movies_star.mvp.view.MainView;
 import com.example.dimas.popular_movies_star.ui.adapter.MovieAdapter;
 import com.example.dimas.popular_movies_star.ui.adapter.MovieClickListener;
@@ -46,7 +47,7 @@ public class MainActivity extends AppCompatActivity implements MainView, MovieCl
     // For keep position state recyclerview
     public static int index = -1;
     public static int top = -1;
-    private GridLayoutManager gridLayoutManager;
+    private LinearLayoutManager linearLayoutManager;
 
 
     @Override
@@ -64,12 +65,17 @@ public class MainActivity extends AppCompatActivity implements MainView, MovieCl
     private void initViews() {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        toolbar.setPadding(0, getStatusBarHeight(), 0, 0);
 
         mRecyclerView = findViewById(R.id.recyclerView);
         progressBar = findViewById(R.id.progressBar);
-        int gridColumn = getResources().getInteger(R.integer.grid_column_count);
-        gridLayoutManager = new GridLayoutManager(this, gridColumn);
-        mRecyclerView.setLayoutManager(gridLayoutManager);
+        SnapHelper snapHelper = new LinearSnapHelper();
+        snapHelper.attachToRecyclerView(mRecyclerView);
+        // set juga lastvisible position
+//        int gridColumn = getResources().getInteger(R.integer.grid_column_count);
+//        linearLayoutManager = new GridLayoutManager(this, gridColumn);
+        linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
+        mRecyclerView.setLayoutManager(linearLayoutManager);
         mRecyclerView.setHasFixedSize(true);
     }
 
@@ -143,7 +149,7 @@ public class MainActivity extends AppCompatActivity implements MainView, MovieCl
     protected void onPause() {
         super.onPause();
 
-        index = gridLayoutManager.findFirstVisibleItemPosition();
+        index = linearLayoutManager.findFirstVisibleItemPosition();
         View v = mRecyclerView.getChildAt(0);
         top = (v == null) ? 0 : (v.getTop() - mRecyclerView.getPaddingTop());
     }
@@ -151,8 +157,17 @@ public class MainActivity extends AppCompatActivity implements MainView, MovieCl
     @Override
     protected void onResume() {
         super.onResume();
-        if (index != -1){
-            gridLayoutManager.scrollToPositionWithOffset(index, top);
+        if (index != -1) {
+            linearLayoutManager.scrollToPositionWithOffset(index, top);
         }
+    }
+
+    public int getStatusBarHeight() {
+        int result = 0;
+        int resourceId = getResources().getIdentifier("status_bar_height", "dimen", "android");
+        if (resourceId > 0) {
+            result = getResources().getDimensionPixelSize(resourceId);
+        }
+        return result;
     }
 }
