@@ -1,5 +1,8 @@
 package com.example.dimas.popular_movies_star.mvp.model;
 
+import android.support.annotation.NonNull;
+import android.util.Log;
+
 import com.example.dimas.popular_movies_star.data.model.Movie;
 import com.example.dimas.popular_movies_star.data.model.ResponseMovie;
 import com.example.dimas.popular_movies_star.mvp.ResultListener;
@@ -11,6 +14,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
+
 /**
  * Created by       : dimas on 29/01/18.
  * Email            : araymaulana66@gmail.com
@@ -18,11 +22,14 @@ import io.reactivex.schedulers.Schedulers;
 
 public class MainModelImp implements MaiModel {
 
+    private final String TAG = MainModelImp.class.getSimpleName();
+
     public MainModelImp() {
     }
 
     @Override
-    public void callMatchMovies(final Observable<ResponseMovie<Movie>> movieObservable, final ResultListener<Movie> listener) {
+    public void callMatchMovies(@NonNull final Observable<ResponseMovie<Movie>> movieObservable, @NonNull final ResultListener<Movie> listener) {
+        Log.d(TAG, "callMatchMovies: ");
         movieObservable
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

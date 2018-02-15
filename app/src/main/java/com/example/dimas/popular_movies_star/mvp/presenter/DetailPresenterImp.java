@@ -49,7 +49,6 @@ public class DetailPresenterImp implements DetailPresenter {
     @Override
     public void setupTrailerVideo(int idMovie) {
         MovieService movieService = MovieClient.createService(MovieService.class);
-        // TODO: 02/02/18 get trailer observable
         Observable<ResponseTrailer> trailerObservable = movieService.getTrailer(idMovie);
         detailModel.callTrailerVideo(trailerObservable, new ResultListener<Trailer>() {
             @Override

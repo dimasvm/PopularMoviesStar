@@ -6,5 +6,5 @@ package com.example.dimas.popular_movies_star;
  */
 
 public enum OptionMovie {
-    POPULAR_MOVIE, UPCOMING_MOVIE
+    POPULAR_MOVIE, NOW_PLAYING
 }

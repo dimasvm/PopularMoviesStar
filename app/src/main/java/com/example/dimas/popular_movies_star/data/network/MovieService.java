@@ -19,9 +19,8 @@ public interface MovieService {
 
     // Get Popular Movie
     @GET("movie/popular")
-    Observable<ResponseMovie<Movie>> getDiscoverMovie(
-            @Query("page") int page,
-            @Query("sort_by") String sortBy
+    Observable<ResponseMovie<Movie>> getPopularMovie(
+            @Query("page") int page
     );
 
     // Get Now Playing Movie

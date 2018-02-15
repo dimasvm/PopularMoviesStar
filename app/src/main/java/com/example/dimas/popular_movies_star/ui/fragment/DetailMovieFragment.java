@@ -150,9 +150,7 @@ public class DetailMovieFragment extends Fragment implements DetailMovieView{
     public void showTrailer(List<Trailer> listT) {
         RecyclerView recyclerView = activity.findViewById(R.id.recyclerView_trailer);
         recyclerView.setLayoutManager(new LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false));
-        // TODO : Set Adapter recyclerview trailer
         TrailerAdapter trailerAdapter = new TrailerAdapter(activity, listT);
-        // todo set listener trailer adapter
         trailerAdapter.setOnTrailerClickListener(position -> {
             Trailer trailer = trailerAdapter.getItem(position);
             if (trailer != null){

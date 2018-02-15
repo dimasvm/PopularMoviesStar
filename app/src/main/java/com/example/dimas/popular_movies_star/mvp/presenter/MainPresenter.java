@@ -1,5 +1,7 @@
 package com.example.dimas.popular_movies_star.mvp.presenter;
 
+import android.widget.ImageView;
+
 import com.example.dimas.popular_movies_star.OptionMovie;
 import com.example.dimas.popular_movies_star.data.model.Movie;
 import com.example.dimas.popular_movies_star.mvp.BasePresenter;
@@ -16,7 +18,7 @@ public interface MainPresenter extends BasePresenter<MainView> {
     /**
      * Menampilkan movie page ke - n
      */
-    void getMovies(int page, OptionMovie optionMovie);
+    void getPopularMovies(int page);
 
     /**
      * Menampilkan movie yang sedang tayang
@@ -26,5 +28,6 @@ public interface MainPresenter extends BasePresenter<MainView> {
     /**
      * Menampilkan detail movie yang di pilih
      */
-    void getDetailPage(Movie movie);
+    void getDetailPage(Movie movie, ImageView sharedImage);
+
 }

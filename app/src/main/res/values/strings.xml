@@ -17,4 +17,8 @@
     </string>
     <string name="trailer">Trailer</string>
 
+    <!--Error String-->
+    <string name="no_connection_error">No Internet Connection</string>
+    <string name="no_movies">No Movies</string>
+
 </resources>

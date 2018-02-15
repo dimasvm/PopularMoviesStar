@@ -1,20 +1,28 @@
 package com.example.dimas.popular_movies_star.ui.adapter;
 
 import android.content.Context;
+import android.os.Handler;
 import android.support.v4.view.ViewCompat;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.example.dimas.popular_movies_star.OnLoadMoreListener;
 import com.example.dimas.popular_movies_star.R;
 import com.example.dimas.popular_movies_star.data.model.Movie;
+import com.example.dimas.popular_movies_star.utils.EndlessRecyclerViewScrollListener;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.example.dimas.popular_movies_star.OptionMovie.POPULAR_MOVIE;
 
 /**
  * Created by       : dimas on 12/01/18.
@@ -22,39 +30,61 @@ import java.util.List;
  */
 
 public class MovieAdapter
-        extends RecyclerView.Adapter<MovieAdapter.MovieViewHolder> {
+        extends RecyclerView.Adapter {
 
     private Context mContext;
     private List<Movie> mMoviesList;
     private MovieClickListener movieClickListener;
 
+    private int VIEW_TYPE_ITEM = 0;
+    private int VIEW_TYPE_LOADING = 1;
 
-    public MovieAdapter(Context context, List<Movie> movies, MovieClickListener movieClickListener) {
+    private final String TAG = MovieAdapter.class.getSimpleName();
+
+    public MovieAdapter(Context context, MovieClickListener movieClickListener) {
+
         mMoviesList = new ArrayList<>();
-        addAll(movies);
         mContext = context;
         this.movieClickListener = movieClickListener;
     }
 
+
     public void addAll(List<Movie> movies) {
-        mMoviesList.clear();
+        int curSize = getItemCount();
         mMoviesList.addAll(movies);
-        notifyDataSetChanged();
+        notifyItemRangeInserted(curSize, mMoviesList.size() - 1);
+
+    }
+
+
+    @Override
+    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        LayoutInflater inflater = LayoutInflater.from(parent.getContext());
+        RecyclerView.ViewHolder vh;
+        View view;
+        if (viewType == VIEW_TYPE_ITEM){
+            view = inflater.inflate(R.layout.item_grid_movie, parent, false);
+            return new MovieViewHolder(view);
+        } else {
+            view = inflater.inflate(R.layout.item_load_more, parent, false);
+            return new ProgressBarViewHolder(view);
+        }
     }
 
     @Override
-    public MovieViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        LayoutInflater inflater = LayoutInflater.from(mContext);
-        View view = inflater.inflate(R.layout.item_grid_movie, parent, false);
-        return new MovieViewHolder(view);
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+        if (holder instanceof MovieViewHolder){
+            Movie movie = mMoviesList.get(position);
+            ((MovieViewHolder) holder).bindData(movie);
+        } else {
+            ((ProgressBarViewHolder) holder).progressBar.setIndeterminate(true);
+        }
     }
 
     @Override
-    public void onBindViewHolder(final MovieViewHolder holder, int position) {
-        Movie movie = mMoviesList.get(position);
-        holder.bindData(movie);
+    public int getItemViewType(int position) {
+        return mMoviesList.get(position) != null ? VIEW_TYPE_ITEM : VIEW_TYPE_LOADING;
     }
-
 
     @Override
     public int getItemCount() {
@@ -81,7 +111,7 @@ public class MovieAdapter
         }
 
         void bindData(Movie movie) {
-            Picasso.with(mContext)
+            Picasso.with(itemView.getContext())
                     .load(movie.getPoster_path())
                     .placeholder(android.R.drawable.stat_sys_warning)
                     .error(android.R.drawable.stat_notify_error)
@@ -98,4 +128,13 @@ public class MovieAdapter
         }
     }
 
+    private class ProgressBarViewHolder extends RecyclerView.ViewHolder {
+
+        private ProgressBar progressBar;
+
+        ProgressBarViewHolder(View view) {
+            super(view);
+            progressBar = view.findViewById(R.id.progressBarOnLoadMore);
+        }
+    }
 }
